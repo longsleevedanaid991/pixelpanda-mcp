@@ -1,3 +1,4 @@
+<!-- mcp-name: io.github.RyanKramer/pixelpanda-mcp -->
 # PixelPanda MCP Server
 
 AI image processing tools for Claude Desktop, Cursor, VS Code, and other MCP-compatible clients.
