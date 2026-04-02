@@ -1,6 +1,6 @@
 [project]
 name = "pixelpanda-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "MCP server for PixelPanda — AI image processing tools for Claude Desktop, Cursor, and other MCP clients"
 readme = "README.md"
 license = {text = "MIT"}

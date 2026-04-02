@@ -242,3 +242,89 @@ def register(mcp):
                 f"{j.get('created_at', '?')} | credits: {j.get('credits_used', '?')}"
             )
         return "\n".join(lines)
+
+    @mcp.tool()
+    async def upscale_image(
+        image_url: str | None = None,
+        file_path: str | None = None,
+        scale: int = 4,
+        quality: str = "balanced",
+    ) -> str:
+        """Upscale an image to higher resolution using AI.
+
+        Provide either image_url (public URL) or file_path (local file).
+        Scale: 2 (1 credit, fast), 4 (3 credits, recommended), 8 (5 credits, print-ready).
+        Quality: fast (Real-ESRGAN), balanced (Clarity Upscaler), high (Clarity max).
+
+        Requires PIXELPANDA_API_TOKEN.
+        """
+        require_token()
+
+        data = {"scale": scale, "quality": quality}
+
+        if file_path:
+            file_path = os.path.expanduser(file_path)
+            with open(file_path, "rb") as f:
+                data["image_base64"] = base64.b64encode(f.read()).decode()
+        elif image_url:
+            data["image_url"] = image_url
+        else:
+            return "Error: provide either image_url or file_path"
+
+        result = await api_client.post_json("/api/v2/upscale", data)
+
+        details = result.get("details", {})
+        width = details.get("width", "?")
+        height = details.get("height", "?")
+
+        return (
+            f"Image upscaled {scale}x!\n"
+            f"Result: {result.get('result_url', '?')}\n"
+            f"Dimensions: {width} x {height}\n"
+            f"Credits used: {result.get('credits_used', '?')}\n"
+            f"Credits remaining: {result.get('credits_remaining', '?')}"
+        )
+
+    @mcp.tool()
+    async def enhance_image(
+        image_url: str | None = None,
+        file_path: str | None = None,
+    ) -> str:
+        """Enhance, sharpen, and restore an image using multiple AI methods.
+
+        Returns multiple variants (Clean Upscale, Face Enhance, AI Restore, Full Restore).
+        Cost: 1 credit. Provide either image_url (public URL) or file_path (local file).
+
+        Requires PIXELPANDA_API_TOKEN.
+        """
+        require_token()
+
+        data = {}
+        if file_path:
+            file_path = os.path.expanduser(file_path)
+            with open(file_path, "rb") as f:
+                data["image_base64"] = base64.b64encode(f.read()).decode()
+        elif image_url:
+            data["image_url"] = image_url
+        else:
+            return "Error: provide either image_url or file_path"
+
+        result = await api_client.post_json("/api/v2/enhance", data)
+
+        details = result.get("details", {})
+        variants = details.get("variants", [])
+
+        lines = [
+            f"Image enhanced! ({len(variants)} variant(s))\n",
+            f"Best result: {result.get('result_url', '?')}\n",
+        ]
+
+        if variants:
+            lines.append("All variants:")
+            for v in variants:
+                lines.append(f"  - {v.get('label', '?')}: {v.get('url', '?')}")
+
+        lines.append(f"\nCredits used: {result.get('credits_used', '?')}")
+        lines.append(f"Credits remaining: {result.get('credits_remaining', '?')}")
+
+        return "\n".join(lines)
