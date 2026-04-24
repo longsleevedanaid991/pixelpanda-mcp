@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.RyanKramer/pixelpanda-mcp",
-  "description": "31 image tools: free local editing, AI background removal, and product photos",
+  "description": "33 image tools: free local editing, AI upscaling, enhancement, background removal, and product photos",
   "repository": {
     "url": "https://github.com/RyanKramer/pixelpanda-mcp",
     "source": "github"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "pixelpanda-mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "transport": {
         "type": "stdio"
       },
